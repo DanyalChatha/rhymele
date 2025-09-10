@@ -1,4 +1,4 @@
-# 🎵 Rhymele  
+# 🎤 Rhymele  
 
 Rhymele is a word-guessing game inspired by **Wordle**, but with a twist — instead of just guessing words, you have to find the **word that rhymes** with the given hint!  
 
@@ -34,6 +34,20 @@ Rhymele currently offers **three game modes**:
 ## 🚀 Getting Started  
 
 ### Clone the Repository  
-```bash
-git clone https://github.com/danyalchatha/rhymele.git
-cd rhymele
+`git clone https://github.com/danyalchatha/rhymele.git`
+
+`cd rhymele`
+
+### Install Dependencies
+`npm install`
+
+### Run the App Locally
+`npm start`
+
+---
+
+## Play Online
+
+The game is live here: https://rhymele.netlify.app/
+
+---
