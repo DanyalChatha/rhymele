@@ -1,0 +1,155 @@
+:root {
+  --fg: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #8b5cf6;
+  color: var(--fg);
+}
+
+body {
+  background: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 24px;
+}
+.app h1 {
+  margin: 0 0 16px;
+  font-size: 32px;
+}
+.app h1 span {
+  color: var(--accent);
+}
+
+.game {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.controls .modes {
+  display: flex;
+  gap: 8px;
+}
+.controls button {
+  background: #0b1220;
+  color: var(--fg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.controls button.active {
+  outline: 2px solid var(--accent);
+}
+.controls .newgame {
+  background: #101826;
+}
+.controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  margin: 10px 0 16px;
+  color: var(--muted);
+}
+.hint .hint-word {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.board {
+  display: grid;
+  grid-template-rows: repeat(6, 54px);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.box {
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: lowercase;
+  color: var(--muted);
+}
+.box.green {
+  background: rgba(34, 197, 94, 0.14);
+  color: #eafff2;
+  border: 1px solid rgba(34, 197, 94, 0.5);
+}
+.box.yellow {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fff7e6;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+.box.gray {
+  background: rgba(51, 65, 85, 0.25);
+  color: #cbd5e1;
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+.input-row input {
+  flex: 1;
+  background: #0b1220;
+  color: var(--fg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 16px;
+}
+.input-row button {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  background: #0b1220;
+  color: var(--fg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.status {
+  margin-top: 10px;
+  color: var(--muted);
+}
+.status.won strong,
+.status.lost strong {
+  color: var(--fg);
+}
+.tip {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+
