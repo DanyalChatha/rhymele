@@ -2,6 +2,9 @@
   --fg: #e2e8f0;
   --muted: #94a3b8;
   --accent: #8b5cf6;
+  --error: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
   color: var(--fg);
 }
 
@@ -57,9 +60,15 @@ body {
   border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  transition: all 0.2s ease;
+}
+.controls button:hover:not(:disabled) {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 .controls button.active {
   outline: 2px solid var(--accent);
+  background: rgba(139, 92, 246, 0.1);
 }
 .controls .newgame {
   background: #101826;
@@ -79,12 +88,26 @@ body {
   letter-spacing: 0.5px;
 }
 
+.word-stats {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
 .board {
   display: grid;
   grid-template-rows: repeat(6, 54px);
   gap: 10px;
   margin-bottom: 14px;
 }
+
+/* Unlimited mode board styling */
+.board.unlimited-board {
+  grid-template-rows: none;
+  grid-auto-rows: 54px;
+}
+
 .row {
   display: grid;
   grid-template-columns: 1fr;
@@ -98,21 +121,60 @@ body {
   letter-spacing: 1px;
   text-transform: lowercase;
   color: var(--muted);
+  transition: all 0.3s ease;
+  height: 52px; /* Ensure consistent height */
+  min-height: 52px; /* Prevent shrinking */
 }
 .box.green {
   background: rgba(34, 197, 94, 0.14);
   color: #eafff2;
   border: 1px solid rgba(34, 197, 94, 0.5);
+  animation: correctPulse 0.6s ease;
 }
 .box.yellow {
   background: rgba(245, 158, 11, 0.12);
   color: #fff7e6;
   border: 1px solid rgba(245, 158, 11, 0.5);
+  animation: rhymePulse 0.6s ease;
 }
 .box.gray {
   background: rgba(51, 65, 85, 0.25);
   color: #cbd5e1;
   border: 1px solid rgba(51, 65, 85, 0.6);
+  animation: wrongShake 0.6s ease;
+}
+
+@keyframes correctPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rhymePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes wrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
 }
 
 .input-row {
@@ -127,6 +189,14 @@ body {
   border-radius: 10px;
   padding: 12px 14px;
   font-size: 16px;
+  transition: all 0.2s ease;
+}
+.input-row input:focus {
+  outline: 2px solid var(--accent);
+  border-color: transparent;
+}
+.input-row input:disabled {
+  opacity: 0.6;
 }
 .input-row button {
   padding: 12px 16px;
@@ -136,6 +206,38 @@ body {
   color: var(--fg);
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 70px;
+}
+.input-row button:hover:not(:disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.input-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 14px;
+  animation: errorSlideIn 0.3s ease;
+}
+
+@keyframes errorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .status {
@@ -146,8 +248,25 @@ body {
 .status.lost strong {
   color: var(--fg);
 }
+.status.won {
+  color: var(--success);
+}
+.status.lost {
+  color: var(--warning);
+}
+
+.possible-answers {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  opacity: 0.9;
+}
+
+.tips {
+  margin-top: 10px;
+}
 .tip {
-  margin-top: 8px;
+  margin: 4px 0;
   color: var(--muted);
   font-size: 14px;
 }
@@ -158,5 +277,44 @@ span img {
   vertical-align: middle;
 }
 
+/* Loading state styles */
+.input-row input::placeholder {
+  transition: opacity 0.2s ease;
+}
+.input-row input:disabled::placeholder {
+  opacity: 0.8;
+}
 
+/* Responsive design */
+@media (max-width: 480px) {
+  .app {
+    margin: 20px auto;
+    padding: 16px;
+  }
 
+  .app h1 {
+    font-size: 28px;
+  }
+
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .controls .modes {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .box {
+    font-size: 18px;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .input-row button {
+    width: 100%;
+  }
+}
